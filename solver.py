@@ -10,6 +10,9 @@ def read_input(filename):
 
         tiles = list(map(tuple, tiles))
 
+    if not validation(colors, tiles, k):
+        raise ValueError("Invalid input data")
+
     return colors, tiles, k
 
 def validation(colors, tiles, k):
@@ -33,3 +36,10 @@ def validation(colors, tiles, k):
         return False
 
     return True
+
+if __name__ == "__main__":
+    colors, tiles, k = read_input("input.json")
+
+    print("Colors:", colors)
+    print("Tiles:", tiles)
+    print("K:", k)
