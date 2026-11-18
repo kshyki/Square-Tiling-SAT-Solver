@@ -1,7 +1,7 @@
 import json
 from pysat.solvers import Glucose3
 
-def hash(row, col, index, size, tilesNumber):
+def hashing(row, col, index, size, tilesNumber):
     return (row * size + col) * tilesNumber + index + 1
 
 def read_input(filename):
