@@ -1,4 +1,8 @@
 import json
+from pysat.solvers import Glucose3
+
+def hash(row, col, index, size, tilesNumber):
+    return (row * size + col) * tilesNumber + index + 1
 
 def read_input(filename):
     with open(filename, "r") as file:
@@ -36,6 +40,9 @@ def validation(colors, tiles, k):
         return False
 
     return True
+
+def solve_sat(colors, tiles, k):
+    pass
 
 if __name__ == "__main__":
     colors, tiles, k = read_input("input.json")
