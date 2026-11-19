@@ -1,6 +1,11 @@
 import json
 from pysat.solvers import Glucose3
 
+SIDE = {"LEFT" : 3,
+        "TOP" : 0,
+        "RIGHT" : 1,
+        "BOTTOM" : 2}
+
 def hashing(row, col, index, size, tilesNumber):
     return (row * size + col) * tilesNumber + index + 1
 
@@ -62,6 +67,26 @@ def solve_sat(colors, tiles, k):
                     ]
 
                     solver.add_clause(clause)
+
+    for row in range(k):
+        for col in range(k - 1):
+            for p in range(m):
+                for q in range(m):
+                    if tiles[p][SIDE["RIGHT"]] != tiles[q][SIDE["LEFT"]]:
+                        solver.add_clause([
+                            -hashing(row, col, p, k, m),
+                            -hashing(row, col + 1, q, k, m)
+                        ])
+
+    for row in range(k-1):
+        for col in range(k):
+            for p in range(m):
+                for q in range(m):
+                    if tiles[p][SIDE["BOTTOM"]] != tiles[q][SIDE["TOP"]]:
+                        solver.add_clause([
+                            -hashing(row, col, p, k, m),
+                            -hashing(row + 1, col, q, k, m)
+                        ])
 
     return solver
 
