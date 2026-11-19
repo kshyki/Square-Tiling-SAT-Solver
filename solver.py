@@ -42,7 +42,19 @@ def validation(colors, tiles, k):
     return True
 
 def solve_sat(colors, tiles, k):
-    pass
+    solver = Glucose3()
+    m = len(tiles)
+
+    for row in range(k):
+        for col in range(k):
+            clause = []
+
+            for i in range(m):
+                clause.append(hashing(row, col, i, k, m))
+
+            solver.add_clause(clause)
+
+    return solver
 
 if __name__ == "__main__":
     colors, tiles, k = read_input("input.json")
