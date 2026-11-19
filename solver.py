@@ -54,6 +54,15 @@ def solve_sat(colors, tiles, k):
 
             solver.add_clause(clause)
 
+            for p in range(m):
+                for q in range(p + 1, m):
+                    clause = [
+                        -hashing(row, col, p, k, m),
+                        -hashing(row, col, q, k, m)
+                    ]
+
+                    solver.add_clause(clause)
+
     return solver
 
 if __name__ == "__main__":
