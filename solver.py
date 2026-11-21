@@ -109,9 +109,21 @@ def decode(model, k, m):
 
     return board
 
+def print_results(board):
+    for row in board:
+        print(row)
+
 if __name__ == "__main__":
     colors, tiles, k = read_input("input.json")
 
-    print("Colors:", colors)
-    print("Tiles:", tiles)
-    print("K:", k)
+    solver = solve_sat(colors, tiles, k)
+
+    if solver.solve():
+        print("SAT")
+        model = solver.get_model()
+        board = decode(model, k, len(tiles))
+        print_results(board)
+    else:
+        print("UNSAT")
+
+    solver.delete()
