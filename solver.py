@@ -1,6 +1,7 @@
 import json
 import argparse
-from pysat.solvers import Glucose3
+from pysat.solvers import Glucose42
+from pysat.formula import CNF
 
 SIDE = {"LEFT" : 3,
         "TOP" : 0,
@@ -48,17 +49,14 @@ def validation(colors, tiles, k):
     return True
 
 def solve_sat(colors, tiles, k):
-    solver = Glucose3()
+    solver = Glucose42()
     m = len(tiles)
+    cnf = CNF()
 
     for row in range(k):
         for col in range(k):
-            clause = []
 
-            for i in range(m):
-                clause.append(hashing(row, col, i, k, m))
-
-            solver.add_clause(clause)
+            cnf.append([hashing(row, col, i, k, m) for i in range(m)])
 
             for p in range(m):
                 for q in range(p + 1, m):
@@ -67,14 +65,14 @@ def solve_sat(colors, tiles, k):
                         -hashing(row, col, q, k, m)
                     ]
 
-                    solver.add_clause(clause)
+                    cnf.append(clause)
 
     for row in range(k):
         for col in range(k - 1):
             for p in range(m):
                 for q in range(m):
                     if tiles[p][SIDE["RIGHT"]] != tiles[q][SIDE["LEFT"]]:
-                        solver.add_clause([
+                        cnf.append([
                             -hashing(row, col, p, k, m),
                             -hashing(row, col + 1, q, k, m)
                         ])
@@ -84,11 +82,13 @@ def solve_sat(colors, tiles, k):
             for p in range(m):
                 for q in range(m):
                     if tiles[p][SIDE["BOTTOM"]] != tiles[q][SIDE["TOP"]]:
-                        solver.add_clause([
+                        cnf.append([
                             -hashing(row, col, p, k, m),
                             -hashing(row + 1, col, q, k, m)
                         ])
 
+    cnf.to_file('soltution.cnf')
+    solver = Glucose42(bootstrap_with=cnf.clauses)
     return solver
 
 def decode(model, k, m):
