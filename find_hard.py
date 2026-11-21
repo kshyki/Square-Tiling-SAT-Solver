@@ -26,7 +26,7 @@ for k in [10, 15, 20, 25, 30]:
                     "tiles": tiles,
                     "k": k
                 }
-                with open("hard_sat.json", "w") as file:
+                with open("instances/hard_sat.json", "w") as file:
                     json.dump(instance, file, indent=4)
                 print("hard sat instance:")
                 print(f"k = {k}, tiles = {m}")

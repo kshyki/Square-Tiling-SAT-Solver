@@ -116,10 +116,14 @@ Example:
 Run the script from the command line:
 
 ```bash
-python main.py input.json
+python solver.py input.json
 ```
 
-Replace `input.json` with the path to the desired input file.
+Replace `input.json` with the path to the desired input file. For example of template instances:
+
+```bash
+python solver.py instances/satisfiable_instance.json
+```
 
 ### Output format
 
@@ -180,7 +184,7 @@ python find_hard.py
 Once `hard_sat.json` is generated, you can evaluate it directly with the solver:
 
 ```bash
-python main.py hard_sat.json
+python solver.py hard_sat.json
 ```
 ## 6. Sources
 

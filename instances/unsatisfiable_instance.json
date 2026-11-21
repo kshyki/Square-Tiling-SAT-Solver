@@ -1,0 +1,7 @@
+{
+    "colors": ["red", "blue"],
+    "tiles": [
+        ["red", "red", "red", "blue"]
+    ],
+    "k": 2
+}

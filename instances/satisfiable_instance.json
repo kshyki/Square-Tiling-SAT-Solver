@@ -1,0 +1,14 @@
+{
+    "colors": ["red", "blue", "green", "yellow"],
+    "tiles": [
+        ["red", "blue", "green", "yellow"],
+        ["yellow", "red", "blue", "green"],
+        ["green", "yellow", "red", "blue"],
+        ["blue", "green", "yellow", "red"],
+        ["red", "red", "blue", "blue"],
+        ["blue", "blue", "green", "green"],
+        ["green", "green", "yellow", "yellow"],
+        ["yellow", "yellow", "red", "red"]
+    ],
+    "k": 3
+}
