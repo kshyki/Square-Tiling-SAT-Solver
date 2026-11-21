@@ -1,4 +1,5 @@
 import json
+import argparse
 from pysat.solvers import Glucose3
 
 SIDE = {"LEFT" : 3,
@@ -114,7 +115,10 @@ def print_results(board):
         print(row)
 
 if __name__ == "__main__":
-    colors, tiles, k = read_input("input.json")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input", type=str, help="Path to input JSON file")
+    args = parser.parse_args()
+    colors, tiles, k = read_input(args.input)
 
     solver = solve_sat(colors, tiles, k)
 
