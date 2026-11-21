@@ -90,6 +90,25 @@ def solve_sat(colors, tiles, k):
 
     return solver
 
+def decode(model, k, m):
+    board = []
+    true_variables = {x for x in model if x > 0}
+
+    for row in range(k):
+        current_row = []
+
+        for col in range(k):
+            for t in range(m):
+                variable = hashing(row, col, t, k, m)
+
+                if variable in true_variables:
+                    current_row.append(t)
+                    break
+
+        board.append(current_row)
+
+    return board
+
 if __name__ == "__main__":
     colors, tiles, k = read_input("input.json")
 
