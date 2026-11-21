@@ -87,7 +87,6 @@ def solve_sat(colors, tiles, k):
                             -hashing(row + 1, col, q, k, m)
                         ])
 
-    cnf.to_file('soltution.cnf')
     solver = Glucose42(bootstrap_with=cnf.clauses)
     return solver
 
